@@ -1,17 +1,22 @@
-class Teacher
-  attr_reader :age, :salary, :phase, :performance_rating, :target_raise
+require_relative 'student'
+
+class Teacher < Student
+  attr_reader :age, :salary, :phase, :target_raise
+  # attr_reader :performance_rating
   attr_accessor :name
 
   def initialize(options={})
+    super
     @phase = 3
-    @age = options.fetch(:age, 0)
-    @name = options.fetch(:name, "")
+    # @age = options.fetch(:age, 0)
+    # @name = options.fetch(:name, "")
     @target_raise = 1000
+    @rating_treshold = 90
   end
 
-  def offer_high_five
-    "High five!"
-  end
+  # def offer_high_five
+  #   "High five!"
+  # end
 
   def set_phase(num)
     @phase = num
@@ -37,7 +42,7 @@ class Teacher
 
   def set_performance_rating(rating)
     response = ""
-    if rating > 90
+    if rating > @rating_treshold
       receive_raise(@target_raise)
       response = "Yay, I'm a great employee!"
     else
